@@ -1,0 +1,36 @@
+{
+    "event_name": "repository_update",
+    "user_id": 4,
+    "user_name": "Sing Li",
+    "user_email": "sing.li@rocket.chat",
+    "user_avatar": "https://secure.gravatar.com/avatar/d8cc31000254828866302f04a16e54c6?s=80&d=identicon",
+    "project_id": 43,
+    "project": {
+        "id": 43,
+        "name": "testing_project",
+        "description": "",
+        "web_url": "https://ispare.impamark.com:8443/sing.li/testing_project",
+        "avatar_url": null,
+        "git_ssh_url": "git@ispare.impamark.com:sing.li/testing_project.git",
+        "git_http_url": "https://ispare.impamark.com:8443/sing.li/testing_project.git",
+        "namespace": "sing.li",
+        "visibility_level": 20,
+        "path_with_namespace": "sing.li/testing_project",
+        "default_branch": "master",
+        "ci_config_path": null,
+        "homepage": "https://ispare.impamark.com:8443/sing.li/testing_project",
+        "url": "git@ispare.impamark.com:sing.li/testing_project.git",
+        "ssh_url": "git@ispare.impamark.com:sing.li/testing_project.git",
+        "http_url": "https://ispare.impamark.com:8443/sing.li/testing_project.git"
+    },
+    "changes": [
+        {
+            "before": "0000000000000000000000000000000000000000",
+            "after": "a1a7fb23fc5aeff7232dfa4bb31f003acb4fc2f5",
+            "ref": "refs/heads/master"
+        }
+    ],
+    "refs": [
+        "refs/heads/master"
+    ]
+}

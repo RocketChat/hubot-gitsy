@@ -1,0 +1,15 @@
+{
+    "event_name": "user_add_to_team",
+    "created_at": "2018-09-17T20:50:53Z",
+    "updated_at": "2018-09-17T20:50:53Z",
+    "project_name": "second_project",
+    "project_path": "second_project",
+    "project_path_with_namespace": "sing.li/second_project",
+    "project_id": 42,
+    "user_username": "sing.li",
+    "user_name": "Sing Li",
+    "user_email": "sing.li@rocket.chat",
+    "user_id": 4,
+    "access_level": "Maintainer",
+    "project_visibility": "visibilitylevel|public"
+}

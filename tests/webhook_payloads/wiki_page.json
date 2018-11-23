@@ -1,0 +1,41 @@
+{
+    "object_kind": "wiki_page",
+    "user": {
+        "name": "Sing Li",
+        "username": "sing.li",
+        "avatar_url": "https://secure.gravatar.com/avatar/d8cc31000254828866302f04a16e54c6?s=80&d=identicon"
+    },
+    "project": {
+        "id": 41,
+        "name": "firstproject",
+        "description": "just a simple project",
+        "web_url": "https://ispare.impamark.com:8443/sing.li/firstproject",
+        "avatar_url": null,
+        "git_ssh_url": "git@ispare.impamark.com:sing.li/firstproject.git",
+        "git_http_url": "https://ispare.impamark.com:8443/sing.li/firstproject.git",
+        "namespace": "sing.li",
+        "visibility_level": 20,
+        "path_with_namespace": "sing.li/firstproject",
+        "default_branch": "develop",
+        "ci_config_path": null,
+        "homepage": "https://ispare.impamark.com:8443/sing.li/firstproject",
+        "url": "git@ispare.impamark.com:sing.li/firstproject.git",
+        "ssh_url": "git@ispare.impamark.com:sing.li/firstproject.git",
+        "http_url": "https://ispare.impamark.com:8443/sing.li/firstproject.git"
+    },
+    "wiki": {
+        "web_url": "https://ispare.impamark.com:8443/sing.li/firstproject/wikis/home",
+        "git_ssh_url": "git@ispare.impamark.com:sing.li/firstproject.wiki.git",
+        "git_http_url": "https://ispare.impamark.com:8443/sing.li/firstproject.wiki.git",
+        "path_with_namespace": "sing.li/firstproject.wiki",
+        "default_branch": "master"
+    },
+    "object_attributes": {
+        "slug": "Rocket.Chat-Wiki---as-good-as-it-gets",
+        "title": "Rocket.Chat Wiki   as good as it gets",
+        "format": "markdown",
+        "content": "# The Rocket.Chat Wiki\n\nWell not really.\n\nJust a page for test.",
+        "url": "https://ispare.impamark.com:8443/sing.li/firstproject/wikis/Rocket.Chat-Wiki---as-good-as-it-gets",
+        "action": "create"
+    }
+}

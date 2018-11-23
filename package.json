@@ -1,0 +1,45 @@
+{
+  "name": "hubot-gitsy",
+  "version": "0.9.0",
+  "description": "Gitlab hubot for Rocket.Chat based on Hubot v3",
+  "main": "bin/hubot",
+  "repository": "https://github.com/rocketchat/hubot-gitsy.git",
+  "contributors": [
+    "Sing Li <sing.li@rocket.chat>",
+    "Tim Kinnane <tim.kinnane@amazebot.chat>"
+  ],
+  "license": "MIT",
+  "private": false,
+   "engines": {
+    "node": "> 8.0.0",
+    "npm": "> 5.0.0"
+  },
+  "keywords": [
+    "hubot",
+    "Rocket.Chat",
+    "gitlab",
+    "rocketchat",
+    "chatbot",
+    "chat",
+    "messaging"
+  ],
+  "bot": {
+    "name": "gitsy",
+    "alias": "gitsyhubot",
+    "message-adapter": "rocketchat"
+  },
+   "scripts": {
+    "start": "node -r dotenv/config node_modules/hubot/bin/hubot.js -a rocketchat"
+  },
+  "dependencies": {
+    "hubot": "3.0.1",
+    "hubot-rocketchat": "2.0.0",
+    "gitlab": "^4.0.1",
+    "pad": "^0.1.0",
+    "query-string": "^6.1.0",
+    "url": "0.11.0"
+  },
+  "devDependencies": {
+    "dotenv": "^5.0.1"
+  }
+}
