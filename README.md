@@ -81,21 +81,18 @@ In addition to those, Gitsy has its own
 
 `GITLAB_SHOW_MERGE_DESCRIPTION` tells the bot whether to include the description when announcing a merge request. It defaults to true. 
 
-### Gitlab integration, system and web hooks
+### Gitlab integration, system and web hooks 
+There are two ways Gitsy can be used. One way is to receive notifications from Gitlab as they come in and the other is to have Gitsy retrieve information on command.
 
-For normal functionality, `GITLAB_URL` and `GITLAB_API_KEY` are necessary. This functionality includes:
-* projects - list all projects available
-* prs for n - list open merge requests for project #n
-* issues for n - list open issues for project #n
-* snippets for n - list snippets for project #n
-* pr n for m - show merge request #n for project #m
-* issue n for m - show issue #n for project #m
-* snippet n for m - view snippet #n for project #m
-In these cases Gitsy needs to be able to communicate with the Gitlab install.
+#### Notifications sent from Gitlab 
+Gitlab → Bot → Channel
 
-Other functionality uses Gitlab's system hooks and web hooks.
 
-A system hook is used for events such as
+Using the system hooks or the web hooks, notification can be received from Gitlab. These notifications will appear in your chosen channel (`GITLAB_CHANNEL`) when something occurs in Gitlab. These notifications do not require `GITLAB_URL` or `GITLAB_API_KEY` to be set. Notifications can be set globally (system hooks) or per project (using web hooks).
+
+##### Using system hooks
+
+A system hook is used for events accross Gitlab such as
 * Creation of a project
 * Deletion of a project
 * Creation of a user
@@ -105,4 +102,31 @@ A system hook is used for events such as
 
 To set up a system hook in Gitlab go to the admin area and then to System Hooks. The URL should be in the form: `<bot url>/gitlab/system`. Triggers can be chosen and the system hook can be added.
 
-A web hook can be used to monitor events for specific projects. To set up a web hook go to the project page, hover over settings and click integrations. The URL should be in the form `<bot url>/gitlab/system`. As with system hooks, triggers can be chosen and the web hook can be added.
+##### Using web hooks
+
+A web hook can be used to monitor events for specific projects. These events includes commits, issues, wiki pages etc.
+
+
+To set up a web hook go to the project page, hover over settings and click integrations. The URL should be in the form `<bot url>/gitlab/web`. As with system hooks, triggers can be chosen and the web hook can be added.
+
+#### Retrieving information on command
+Channel → Bot → Gitlab
+
+
+To retrieve information from Gitlab interactively, `GITLAB_URL` and `GITLAB_API_KEY` are necessary. You can issue a command and Gitsy will query Gitlab and post a response back in the channel.
+
+Commands include:
+* intro gitsy - gitsy introduces itself and lists available commands
+* projects - list all projects available
+* prs for n - list open merge requests for project #n
+* issues for n - list open issues for project #n
+* snippets for n - list snippets for project #n
+* pr n for m - show merge request #n for project #m
+* issue n for m - show issue #n for project #m
+* snippet n for m - view snippet #n for project #m
+
+
+An example assuming your bot is named rocket.cat:
+```
+@rocket.cat intro gitsy
+```
