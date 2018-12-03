@@ -17,7 +17,7 @@ Edit files under *scripts* directory to customize your Hubot gitsy!
 Get hubot-gitsy running on your Rocket.Chat and Gitlab server in 3 minutes.
 
 1. Remix [this glitch](https://glitch.com/edit/#!/hubot-gitsy) 
-1. edit the `.env` file to container information about your BOT, Rocket.Chat server, and Gitlab server (as documented in the *Environment variables* section below).
+1. edit the `.env` file and add information about your BOT, Rocket.Chat server, and Gitlab server (as documented in the *Environment variables* section below).
 
 ## Install
 Gitsy requires Node.js to run. Current LTS releases include 6.x, 8.x, 10.x. Async and await was added in Node 7.6.0 so versions 8 or higher would be advisable. 
