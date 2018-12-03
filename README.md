@@ -12,7 +12,6 @@ NOTE:
 
 Edit files under *scripts* directory to customize your Hubot gitsy!
 
-
 ## Install
 Gitsy requires Node.js to run. Current LTS releases include 6.x, 8.x, 10.x. Async and await was added in Node 7.6.0 so versions 8 or higher would be advisable. 
 
@@ -26,13 +25,15 @@ If using Docker or glitch.com a .env file can be used. See https://docs.docker.c
 
 Once the bot has been configured, it can be run. From the repo simply do `bin/hubot`.
 
-
 ### Environment variables
+[rcsdk-env]: https://github.com/rocketchat/rocket.chat.js.sdk#settings
+[hubot-env]: https://hubot.github.com/docs/scripting/#environment-variables
+
 Gitsy is built on hubot-rocketchat and inherits environment variables. See https://github.com/RocketChat/hubot-rocketchat#configuring-your-bot
 
 | Env variable           | Description                                           |
 | ---------------------- | ----------------------------------------------------- |
-| **Hubot**              | A subset of relevant [Hubot env vars][hubot-env]     |
+| **Hubot**              | A subset of relevant [Hubot env vars][hubot-env]      |
 | `HUBOT_ADAPTER`        | Set to `rocketchat` (or pass as launch argument)      |
 | `HUBOT_NAME`           | The programmatic name for listeners                   |
 | `HUBOT_ALIAS`          | An alternate name for the bot to respond to           |
@@ -73,7 +74,7 @@ In addition to those, Gitsy has its own
 
 `GITLAB_API_KEY` is the API key to allow Gitsy to access a GitLab account. If you are an administrator, you can get an API key for the entire server, with visibility to all projects; as a user, your API key can only access your own project(s). If not set only public projects are visible. If this is set but the key is invalid then Gitsy will throw an error. The API key can be created by going to your Gitlab profile, to Access Tokens and creating a personal access token.
 
-`GITLAB_CHANNEL` is the channel in which messages about monitored projects are posted when events occur. Events are such things as creation or modification of a PR, issue, branch, comment etc. It defaults to 'general' if not set. 
+`GITLAB_CHANNEL` is the channel in which messages about monitored projects are posted when events occur. Events include creation or modification of a PR, issue, branch, comment etc. It defaults to 'general' if not set.
 
 `GITLAB_BRANCHES` specifies the branch or branches to monitor in a monitored project. It defaults to all.
 
@@ -82,17 +83,17 @@ In addition to those, Gitsy has its own
 `GITLAB_SHOW_MERGE_DESCRIPTION` tells the bot whether to include the description when announcing a merge request. It defaults to true. 
 
 ### Gitlab integration, system and web hooks 
-There are two ways Gitsy can be used. One way is to receive notifications from Gitlab as they come in and the other is to have Gitsy retrieve information on command.
+There are two methods to using Gitsy. One way is to receive notifications from Gitlab as they come in and the other is to have Gitsy retrieve information on command.
 
 #### Notifications sent from Gitlab 
 Gitlab → Bot → Channel
 
-
-Using the system hooks or the web hooks, notification can be received from Gitlab. These notifications will appear in your chosen channel (`GITLAB_CHANNEL`) when something occurs in Gitlab. These notifications do not require `GITLAB_URL` or `GITLAB_API_KEY` to be set. Notifications can be set globally (system hooks) or per project (using web hooks).
+A system hook is used for receiving notifications in RocketChat from events in Gitlab such as creation of users or projects, commits etc. These notifications will appear in your chosen channel (`GITLAB_CHANNEL`) when something occurs in Gitlab. These notifications do not require `GITLAB_URL` or `GITLAB_API_KEY` to be set. Notifications can be set globally (system hooks) or per project (using web hooks).
 
 ##### Using system hooks
 
-A system hook is used for events accross Gitlab such as
+A system hook is used for events across Gitlab such as
+
 * Creation of a project
 * Deletion of a project
 * Creation of a user
@@ -100,22 +101,27 @@ A system hook is used for events accross Gitlab such as
 * A user having access to a project granted
 * A user having access to a project revoked
 
-To set up a system hook in Gitlab go to the admin area and then to System Hooks. The URL should be in the form: `<bot url>/gitlab/system`. Triggers can be chosen and the system hook can be added.
+To set up a system hook in Gitlab go to the admin area and then to System Hooks.\
+The URL should be in the form: `<bot url>/gitlab/system`.\
+Triggers can be chosen and the system hook can be added.
 
 ##### Using web hooks
 
 A web hook can be used to monitor events for specific projects. These events includes commits, issues, wiki pages etc.
 
+To set up a web hook go to the project page, hover over settings and click integrations.\
+The URL should be in the form `<bot url>/gitlab/web`.\
+As with system hooks, triggers can be chosen and the web hook can be added.
 
-To set up a web hook go to the project page, hover over settings and click integrations. The URL should be in the form `<bot url>/gitlab/web`. As with system hooks, triggers can be chosen and the web hook can be added.
-
-#### Retrieving information on command
+#### Retrieving information from Gitlab
 Channel → Bot → Gitlab
 
+To retrieve information from Gitlab interactively, `GITLAB_URL` and `GITLAB_API_KEY` are necessary.
 
-To retrieve information from Gitlab interactively, `GITLAB_URL` and `GITLAB_API_KEY` are necessary. You can issue a command and Gitsy will query Gitlab and post a response back in the channel.
+You can issue a command and Gitsy will query Gitlab and post a response back in the channel.
 
 Commands include:
+
 * intro gitsy - gitsy introduces itself and lists available commands
 * projects - list all projects available
 * prs for n - list open merge requests for project #n
@@ -125,8 +131,30 @@ Commands include:
 * issue n for m - show issue #n for project #m
 * snippet n for m - view snippet #n for project #m
 
-
-An example assuming your bot is named rocket.cat:
+A couple of examples assuming your bot is named rocket.cat:
 ```
 @rocket.cat intro gitsy
+```
+```
+@<user> Hi, my name is gitsy, and I am the Rocket.Chat gitlab integration bot.
+You can add me for your own Gitlab CE projects or Gitlab cloud public projects.
+Find my code here:
+https://github.com/RocketChat/Rocket.Chat.Ops/tree/master/hubots/hubot-gitsy
+I can do webhooks, issues, merge requests, and snippets out of the box.
+Please add to my abilities and contribute your code to Rocket.Chat.
+projects - list all projects available
+prs for n - list open merge requests for project #n
+issues for n - list open issues for project #n
+snippets for n - list snippets for project #n
+pr n for m - show merge request #n for project #m
+issue n for m - show issue #n for project #m
+snippet n for m - view snippet #n for project #m
+```
+```
+@rocket.cat projects
+```
+```
+1       A project                     2018-11-29T12:41:24.240Z
+2       another project               2018-09-17T21:04:33.967Z
+3       a third project               2018-09-06T19:01:07.395Z
 ```
