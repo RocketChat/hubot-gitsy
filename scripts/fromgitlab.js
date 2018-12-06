@@ -63,15 +63,15 @@ module.exports = (robot) => {
                         break;
                     }
                     case "user_remove_from_team": {
-                        robot.adapter.send(`*${hook.access_level}* access revoked from *${hook.user_name} $(hook.user_email}* on *$(hook.project_name}* project`)
+                        robot.adapter.send(user, `*${hook.access_level}* access revoked from *${hook.user_name} ${hook.user_email}* on *${hook.project_name}* project`)
                         break;
                     }
                     case "user_create": {
-                        robot.adapter.send(`Please welcome *{hook.name} ${hook.email}* to Gitlab!`)
+                        robot.adapter.send(user, `Please welcome *${hook.name} ${hook.email}* to Gitlab!`)
                         break;
                     }
                     case "user_destroy": {
-                        robot.adapter.send(`We will be missing *${hook.name} ${hook.email}* on Gitlab`)
+                        robot.adapter.send(user, `We will be missing *${hook.name} ${hook.email}* on Gitlab`)
                         break;
                     }
                 }
