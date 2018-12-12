@@ -125,7 +125,7 @@ module.exports = (robot) => {
                         }
                         else {
                             if (/^0+$/.test(hook.after)) {
-                                message = `${bold(hook.user_name)} removed a tag (${bold(tag)}) from ${bold(hook.repository.name)} (#{underline(hook.repository.homepage)})`
+                                message = `${bold(hook.user_name)} removed a tag (${bold(tag)}) from ${bold(hook.repository.name)} (${underline(hook.repository.homepage)})`
                             } // of .test(hook.after)
                             else {
                                 if (hook.total_commits_count == 1) {
