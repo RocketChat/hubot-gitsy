@@ -27,6 +27,7 @@ module.exports = (robot) => {
         return res.join("\r\n")
     }
 
+    // TODO fix bold and underline (italic) functions
     function bold(txt) {
         return "**" + txt + "**"
     }
@@ -49,35 +50,73 @@ module.exports = (robot) => {
         }
         switch (type) {
             case "system": {
+                // See https://docs.gitlab.com/ee/system_hooks/system_hooks.html for reference
                 switch (hook.event_name) {
-                    case "project_create": {
-                        robot.adapter.send(user, `Yay! New gitlab project  *${hook.name}* created by *${hook.owner_name} ${hook.owner_email}*`)
+                    case "project_create":
+                        robot.adapter.send(user, `Yay! New Gitlab project  *${hook.name}* created by *${hook.owner_name} ${hook.owner_email}*`)
                         break;
-                    }
-                    case "project_destroy": {
+                    case "project_destroy":
                         robot.adapter.send(user, `Oh no! *${hook.owner_name} ${hook.owner_email}* deleted the *${hook.name}* project`)
                         break;
-                    }
-                    case "user_add_to_team": {
+                    case "user_add_to_team":
                         robot.adapter.send(user, `*${hook.access_level}* access granted to *${hook.user_name} ${hook.user_email}* on *${hook.project_name}* project`)
                         break;
-                    }
-                    case "user_remove_from_team": {
-                        robot.adapter.send(`*${hook.access_level}* access revoked from *${hook.user_name} $(hook.user_email}* on *$(hook.project_name}* project`)
+                    case "user_remove_from_team":
+                        robot.adapter.send(user, `*${hook.access_level}* access revoked from *${hook.user_name} ${hook.user_email}* on *${hook.project_name}* project`)
                         break;
-                    }
-                    case "user_create": {
-                        robot.adapter.send(`Please welcome *{hook.name} ${hook.email}* to Gitlab!`)
+                    case "user_create":
+                        robot.adapter.send(user, `Please welcome *${hook.name} ${hook.email}* to Gitlab!`)
                         break;
-                    }
-                    case "user_destroy": {
-                        robot.adapter.send(`We will be missing *${hook.name} ${hook.email}* on Gitlab`)
+                    case "user_destroy":
+                        robot.adapter.send(user, `We will be missing *${hook.name} ${hook.email}* on Gitlab`)
                         break;
-                    }
+                    case "project_rename":
+                        robot.adapter.send(user, `Gitlab project *${hook.old_path_with_namespace}* has been moved to *${hook.path_with_namespace}*`)
+                        break;
+                    case "project_transfer":
+                        robot.adapter.send(user, `Gitlab project *${hook.old_path_with_namespace}* has been moved to *${hook.path_with_namespace}*`)
+                        break;
+                    case "project_update":
+                        robot.adapter.send(user, `Gitlab project *${hook.name}* has been updated`)
+                        break;
+                    case "user_failed_login":
+                        robot.adapter.send(user, `Blocked user *${hook.name}* has been denied access`)
+                        break;
+                    case "user_rename":
+                        robot.adapter.send(user, `*${hook.old_username}* is now *${hook.username}*`)
+                        break;
+                    case "key_create":
+                        robot.adapter.send(user, `New key for *${hook.username}* added :key:`)
+                        break;
+                    case "key_destroy":
+                        robot.adapter.send(user, `Key for *${hook.username}* destroyed :key:`)
+                        break;
+                    case "group_create":
+                        robot.adapter.send(user, `New group *${hook.name}* created`)
+                        break;
+                    case "group_destroy":
+                        robot.adapter.send(user, `Oh no! group *${hook.name}* has been removed`)
+                        break;
+                    case "group_rename":
+                        robot.adapter.send(user, `Group *${hook.old_full_path}* is now *${hook.full_path}*`)
+                        break;
+                    case "user_add_to_group":
+                        robot.adapter.send(user, `*${hook.user_name}* is now a member of *${hook.group_name}*`)
+                        break;
+                    case "user_remove_from_group":
+                        robot.adapter.send(user, `*${hook.user_name}* is no longer a member of *${hook.group_name}*`)
+                        break;
+                    default:
+                        robot.adapter.send(user, `${hook.event_name} event received from Gitlab... but I don't know what to do with it`)
+                        break;
                 }
                 break;
             } // of case system
             case "web": {
+                // See https://docs.gitlab.com/ee/user/project/integrations/webhooks.html#events for reference
+                // TODO Tidy up the web hooks section
+                // I think how it deals with tags/branches can be cut down
+                // For example it could check for tag_push rather than checking if hook.before is 1 or more 0s
                 let message = ""
 
                 if (hook.ref) {   //  is it code being pushed?
@@ -92,7 +131,7 @@ module.exports = (robot) => {
                         }
                         else {
                             if (/^0+$/.test(hook.after)) {
-                                message = `${bold(hook.user_name)} removed a tag (${bold(tag)}) from ${bold(hook.repository.name)} (#{underline(hook.repository.homepage)})`
+                                message = `${bold(hook.user_name)} removed a tag (${bold(tag)}) from ${bold(hook.repository.name)} (${underline(hook.repository.homepage)})`
                             } // of .test(hook.after)
                             else {
                                 if (hook.total_commits_count == 1) {
