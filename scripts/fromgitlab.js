@@ -27,6 +27,7 @@ module.exports = (robot) => {
         return res.join("\r\n")
     }
 
+    // TODO fix bold and underline (italic) functions
     function bold(txt) {
         return "**" + txt + "**"
     }
@@ -49,6 +50,7 @@ module.exports = (robot) => {
         }
         switch (type) {
             case "system": {
+                // See https://docs.gitlab.com/ee/system_hooks/system_hooks.html for reference
                 switch (hook.event_name) {
                     case "project_create":
                         robot.adapter.send(user, `Yay! New Gitlab project  *${hook.name}* created by *${hook.owner_name} ${hook.owner_email}*`)
@@ -111,6 +113,10 @@ module.exports = (robot) => {
                 break;
             } // of case system
             case "web": {
+                // See https://docs.gitlab.com/ee/user/project/integrations/webhooks.html#events for reference
+                // TODO Tidy up the web hooks section
+                // I think how it deals with tags/branches can be cut down
+                // For example it could check for tag_push rather than checking if hook.before is 1 or more 0s
                 let message = ""
 
                 if (hook.ref) {   //  is it code being pushed?
