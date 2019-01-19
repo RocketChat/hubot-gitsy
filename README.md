@@ -112,21 +112,7 @@ Note the container name, and then you can watch the logs as the gitsy starts up:
 docker logs <container name>
 ```
 
-
-## Install
-Gitsy requires Node.js to run. Current LTS releases include 6.x, 8.x, 10.x. Async and await was added in Node 7.6.0 so versions 8 or higher would be advisable. 
-
-For general installation see https://nodejs.org/en/download/package-manager/
-
-For installing on Red Hat, Fedora or CentOS see https://github.com/nodesource/distributions/blob/master/README.md#installation-instructions-1
-
-Configuration is done through the use of environment variables. These can be set in multiple ways. From the shell, environment variables can be set using `export variablename=value`. Environment variables can be set using a shell script but be aware the script should be executed using `. <scriptname>` or `source <scriptname>`.
-
-If using Docker or glitch.com a .env file can be used. See https://docs.docker.com/compose/env-file/ or https://glitch.com/help/env/ for more information.
-
-Once the bot has been configured, it can be run. From the repo simply do `bin/hubot`.
-
-### Environment variables
+## Environment variables
 [rcsdk-env]: https://github.com/rocketchat/rocket.chat.js.sdk#settings
 [hubot-env]: https://hubot.github.com/docs/scripting/#environment-variables
 
