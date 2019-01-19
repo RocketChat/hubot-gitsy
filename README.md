@@ -19,9 +19,11 @@ Get hubot-gitsy running on your Rocket.Chat and Gitlab server in 3 minutes.
 1. Remix [this glitch](https://glitch.com/edit/#!/hubot-gitsy) 
 1. edit the `.env` file and add information about your BOT, Rocket.Chat server, and Gitlab server (as documented in the *Environment variables* section below).
 
-## Linux Development Quick Start
+## Linux Development/Deployment Quick Start
 
-If you prefer development on a Linux system instead:
+If you prefer development on a Linux system. You will need `git` and `node` installed.
+
+Then check out the latest gitsy code:
 
 ```
 git clone https://github.com/RocketChat/hubot-gitsy
@@ -48,10 +50,66 @@ GITLAB_BRANCHES="xxxxx"
 ```
 (see Environment variables section for details on the variables)
 
-Then
+Finally start gitsy:
 
 ```
-npm run
+npm start
+```
+##  Dockerized Quick Start
+
+On a Linux / MacOS system with only `docker` installed.  In an empty directory, checkout the latest gitsy code:
+
+```
+docker run -ti --rm -v ${HOME}:/root -v $(pwd):/git alpine/git clone https://github.com/RocketChat/hubot-gitsy
+cd hubot-gitsy
+```
+
+Add a `.env` file containing:
+
+```
+# note: .env is a shell file so there can't be spaces around =
+ADAPTER_NAME=rocketchat
+ROCKETCHAT_URL="https://your.rocketchat.server"
+ROCKETCHAT_USESSL=true
+ROCKETCHAT_USER="xxxx"
+ROCKETCHAT_PASSWORD="xxxx"
+ROCKETCHAT_ROOM="xxxxx"
+RESPOND_TO_DM=true
+RESPOND_TO_EDITED=true
+GITLAB_API_KEY="xxxxx"
+GITLAB_URL="https://your.gitlab.server/"
+GITLAB_CHANNEL="xxxxx"
+GITLAB_DEBUG="true"
+GITLAB_BRANCHES="xxxxx"
+```
+(see Environment variables section for details on the variables)
+
+Then  create a `docker-compose.yml` containing:
+
+```
+version: "2"
+services:
+  node:
+    image: "node:8.11"
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./:/home/node/app
+    command: bash -c "npm install && npm start"
+```
+
+Finally, start gitsy as a daemon:
+
+```
+docker-compose up -d
+```
+
+Note the container name, and then you can watch the logs as the gitsy starts up:
+
+```
+docker logs <container name>
 ```
 
 
