@@ -218,9 +218,9 @@ Commands include:
 * issue n for m - show issue #n for project #m
 * snippet n for m - view snippet #n for project #m
 
-A couple of examples assuming your bot is named rocket.cat:
+A couple of examples assuming your bot is named balti:
 ```
-@rocket.cat intro gitsy
+@balti intro gitsy
 ```
 ```
 @<user> Hi, my name is gitsy, and I am the Rocket.Chat gitlab integration bot.
@@ -238,7 +238,7 @@ issue n for m - show issue #n for project #m
 snippet n for m - view snippet #n for project #m
 ```
 ```
-@rocket.cat projects
+@balti projects
 ```
 ```
 1       A project                     2018-11-29T12:41:24.240Z
